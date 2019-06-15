@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -17,7 +18,8 @@ public class Login extends JFrame implements ActionListener {
 	private final int P_HEIGHT = 280;
 	
 	private JTextField text;
-	private String pwd;
+	private String pwd="";
+	private String upwd="12345";
 	
 	public Login() {
 		super("Login");
@@ -83,15 +85,15 @@ public class Login extends JFrame implements ActionListener {
 		bc.addActionListener(this);
 		be.addActionListener(this);
 		
-		lgin.add(b9);
-		lgin.add(b8);
 		lgin.add(b7);
-		lgin.add(b6);
-		lgin.add(b5);
+		lgin.add(b8);
+		lgin.add(b9);
 		lgin.add(b4);
-		lgin.add(b3);
-		lgin.add(b2);
+		lgin.add(b5);
+		lgin.add(b6);
 		lgin.add(b1);
+		lgin.add(b2);
+		lgin.add(b3);
 		lgin.add(b0);
 		lgin.add(bc);
 		lgin.add(be);
@@ -111,63 +113,49 @@ public class Login extends JFrame implements ActionListener {
 		String num = e.getActionCommand();
 		String result = text.getText();
 		
-		if(num.equals("0"))
+		if(num.equals("←"))
 		{
-			text.setText(result+"0");
-		}
-		
-		else if(num.equals("1"))
-		{
-			text.setText(result+"1");
-		}
-		
-		else if(num.equals("2"))
-		{
-			text.setText(result+"2");
-		}
-		
-		else if(num.equals("3"))
-		{
-			text.setText(result+"3");
-		}
-		
-		else if(num.equals("4"))
-		{
-			text.setText(result+"4");
-		}
-		
-		else if(num.equals("5"))
-		{
-			text.setText(result+"5");
-		}
-		
-		else if(num.equals("6"))
-		{
-			text.setText(result+"6");
-		}
-		
-		else if(num.equals("7"))
-		{
-			text.setText(result+"7");
-		}
-		
-		else if(num.equals("8"))
-		{
-			text.setText(result+"8");
-		}
-		
-		else if(num.equals("9"))
-		{
-			text.setText(result+"9");
-		}
-		
-		else if(num.equals("←"))
-		{
-			text.setText(result.substring(0,result.length()-1));
+			if(result.equals(""))
+			{
+				text.setText("");
+			}
+			
+			else
+			{
+				text.setText(result.substring(0,result.length()-1));
+				pwd=result.substring(0,result.length()-1);
+			}
+			
 		}
 		
 		else if(num.equals("Enter"))
 		{
+			if(pwd.equals(upwd))
+			{
+				JOptionPane.showMessageDialog(null, "관리자 계정으로 로그인하셨습니다.", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+				new Manager();
+			}
+			
+			else
+			{
+				JOptionPane.showMessageDialog(null, "틀린 비밀번호입니다. 다시 입력하세요.", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+				text.setText("");
+				pwd="";
+			}
+		}
+		
+		else
+		{
+			if(pwd.equals(""))
+			{
+				pwd=num;
+			}
+			
+			else
+			{
+				pwd=pwd+num;
+			}
+			text.setText(result+"*");
 			
 		}
 		
