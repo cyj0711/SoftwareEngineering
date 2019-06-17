@@ -6,7 +6,11 @@ public class Demo {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Login POS = new Login();
+		//new MainDisplay();
+		new Cash("0");
+		//new Card("");
+		
+		//Login POS = new Login();
 		//POS.setVisible(true);
 		
 	}

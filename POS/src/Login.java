@@ -26,7 +26,7 @@ public class Login extends JFrame implements ActionListener {
 		setSize(Demo.WIDTH, Demo.HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(null);
 		
 		//title ¸¸µé±â
@@ -71,6 +71,7 @@ public class Login extends JFrame implements ActionListener {
 		JButton b9 = new JButton("9");
 		JButton bc = new JButton("¡ç");
 		JButton be = new JButton("Enter");
+		
 		
 		b0.addActionListener(this);
 		b1.addActionListener(this);
