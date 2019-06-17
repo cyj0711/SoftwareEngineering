@@ -134,6 +134,7 @@ public class Login extends JFrame implements ActionListener {
 			if(pwd.equals(upwd))
 			{
 				JOptionPane.showMessageDialog(null, "관리자 계정으로 로그인하셨습니다.", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
 				new Manager();
 			}
 			

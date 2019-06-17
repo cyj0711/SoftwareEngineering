@@ -7,8 +7,10 @@ public class Demo {
 		// TODO Auto-generated method stub
 
 		//new MainDisplay();
-		new Cash("0");
-		//new Card("");
+		//new Cash("3000");
+		new Card("5000");
+		
+		//new CashReceipt("3000");
 		
 		//Login POS = new Login();
 		//POS.setVisible(true);
