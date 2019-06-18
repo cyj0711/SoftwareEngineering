@@ -17,6 +17,7 @@ public class Login extends JFrame implements ActionListener {
 	private final int P_WIDTH = 420;
 	private final int P_HEIGHT = 280;
 	
+	private static boolean logged = false;
 	private JTextField text;
 	private String pwd="";
 	private String upwd="12345";
@@ -134,6 +135,7 @@ public class Login extends JFrame implements ActionListener {
 			if(pwd.equals(upwd))
 			{
 				JOptionPane.showMessageDialog(null, "관리자 계정으로 로그인하셨습니다.", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+				logged=true;
 				dispose();
 				new Manager();
 			}
