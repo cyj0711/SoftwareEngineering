@@ -8,11 +8,11 @@ public class Demo {
 
 		//new MainDisplay();
 		//new Cash("3000");
-		new Card("5000");
+		//new Card("5000");
 		//new CashReceipt("3000");
 		//new PayMonth();
-		//Login POS = new Login();
-		//POS.setVisible(true);
+		new Point();
+		
 		
 	}
 
