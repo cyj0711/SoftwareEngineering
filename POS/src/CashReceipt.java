@@ -67,7 +67,7 @@ public class CashReceipt extends JFrame implements ActionListener { // 현금영수�
 		cal1.add(t1);
 		cal1.add(won1);
 		
-		//현금영수증 종료(개인, 사업자) 선택을 위한 메뉴바 만들기
+		//현금영수증 종료(개인, 사업자) 선택을 위한 JComboBox 만들기
 		pnum = new JPanel();
 		pnum.setLayout(new FlowLayout());
 		

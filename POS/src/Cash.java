@@ -60,10 +60,9 @@ public class Cash extends JFrame implements ActionListener { // 현금 결제창을 구
 		cal1.setLayout(new FlowLayout());
 		
 		JLabel l1 = new JLabel("결제금액");
-		t1 = new JTextField(20);
+		t1 = new JTextField(Integer.toString(this.total), 20);
 		t1.setHorizontalAlignment(JTextField.RIGHT);
 		t1.setEditable(false);
-		t1.setText(Integer.toString(this.total));
 		
 		JLabel won1= new JLabel("원");
 		

@@ -23,17 +23,22 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 	private final int K_WIDTH = 200;
 	private final int K_HEIGHT = 250;
 	
-	private JTextField t1;
-	private JTextField t2;
-	private JTextField t3;
+	private JTextField t1; // °è»ê ±Ý¾× Ãâ·ÂÀ» À§ÇÑ textfield
+	private JTextField t2; // °áÁ¦ ±Ý¾× Ãâ·ÂÀ» À§ÇÑ textfield
+	private JTextField cardNum; // Ä«µå ¹øÈ£ Ãâ·ÂÀ» À§ÇÑ textfield
+	public static JTextField fMonth; // ÇÒºÎ °³¿ù Ãâ·ÂÀ» À§ÇÑ textfield
 	
-	private JPanel cal1;
-	private JPanel cal2;
-	private JPanel pnum;
+	private JPanel cal1; // °è»ê ±Ý¾× ÆÐ³Î
+	private JPanel cal2; // °áÁ¦ ±Ý¾× ÆÐ³Î
+	private JPanel pcard; // Ä«µå ¹øÈ£ ÆÐ³Î
+	private JPanel pnum; // ¼ýÀÚÆÐµå Ãâ·ÂÀ» À§ÇÑ ÆÐ³Î
+	private JPanel pMonth; // ÇÒºÎ Ç¥½Ã¸¦ À§ÇÑ ÆÐ³Î
 	
-	private JLabel l2;
+	private JLabel l2; 
 	
-	private int total;
+	private int total; // °áÁ¦ ±Ý¾×
+	private int change; // °Å½º¸§µ·
+	public static String payMonth; //ÇÒºÎ°³¿ù
 	
 	public Card(String total) {
 		
@@ -60,11 +65,10 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		cal1 = new JPanel();
 		cal1.setLayout(new FlowLayout());
 		
-		JLabel l1 = new JLabel("¹ÞÀ»±Ý¾×");
-		t1 = new JTextField(20);
+		JLabel l1 = new JLabel("¹ÞÀ»±Ý¾×"); 
+		t1 = new JTextField(Integer.toString(this.total), 20);
 		t1.setHorizontalAlignment(JTextField.RIGHT);
 		t1.setEditable(false);
-		t1.setText(Integer.toString(this.total));
 		
 		JLabel won1= new JLabel("¿ø");
 		
@@ -72,12 +76,12 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		cal1.add(t1);
 		cal1.add(won1);
 		
-		//Çö±Ý¿µ¼öÁõ ¹øÈ£¸¦ À§ÇÑ panel »ý¼º
+		//°áÁ¦ ±Ý¾× Ãâ·ÂÀ» À§ÇÑ panel »ý¼º
 		cal2 = new JPanel();
 		cal2.setLayout(new FlowLayout());
 		
 		l2 = new JLabel("°áÁ¦±Ý¾×");
-		t2 = new JTextField(20);
+		t2 = new JTextField(Integer.toString(this.total), 20);
 		t2.setHorizontalAlignment(JTextField.RIGHT);
 		JLabel won2= new JLabel("¿ø");
 		
@@ -85,14 +89,39 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		cal2.add(t2);
 		cal2.add(won2);
 		
+		//Ä«µå ¹øÈ£ Ç¥½Ã¸¦ À§ÇÑ panel »ý¼º
+		pcard = new JPanel();
+		pcard.setLayout(new FlowLayout());
+		
+		JLabel l3 = new JLabel("Ä«µå¹øÈ£");
+		cardNum = new JTextField(22);
+		cardNum.setHorizontalAlignment(JTextField.LEFT);
+		
+		pcard.add(l3);
+		pcard.add(cardNum);
+		
+		//ÇÒºÎ Ç¥½Ã¸¦ À§ÇÑ panel »ý¼º
+		pMonth = new JPanel();
+		pMonth.setLayout(new FlowLayout());
+		
+		JLabel l4 = new JLabel("ÇÒºÎ°³¿ù");
+		fMonth = new JTextField("ÀÏ½ÃºÒ", 10);
+		fMonth.setHorizontalAlignment(JTextField.CENTER);
+		
+		pMonth.add(l4);
+		pMonth.add(fMonth);
 		
 		//panelÀ» ºÙÀÏ À§Ä¡¿Í »çÀÌÁî ¼³Á¤
 		cal1.setBounds(row, col, width, height);
 		cal2.setBounds(row, col+50, width, height);
+		pcard.setBounds(row, col+100, width, height);
+		pMonth.setBounds(row, col+150, width, height);
 		
 		//panelÀ» frame¿¡ ºÙÀÌ±â
 		add(cal1);
 		add(cal2);
+		add(pcard);
+		add(pMonth);
 
 	}
 	
@@ -150,6 +179,9 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 	
 	public void makeButton(int row, int col, int width, int height) {
 		
+		JButton bcash = new JButton("ÇÒºÎ °³¿ù");
+		bcash.addActionListener(this);
+		
 		//½ÂÀÎ ¿äÃ»À» À§ÇÑ ¹öÆ° »ý¼º
 		JButton bapprove = new JButton("½ÂÀÎ ¿äÃ»");
 		bapprove.addActionListener(this);
@@ -160,10 +192,12 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 				
 		
 		//buttonÀ» ºÙÀÏ À§Ä¡¿Í »çÀÌÁî ¼³Á¤
-		bapprove.setBounds(row, col, width, height);
-		bclose.setBounds(row, col+130, width, height);
+		bcash.setBounds(row, col, width, height);
+		bapprove.setBounds(row, col+80, width, height);
+		bclose.setBounds(row, col+160, width, height);
 		
 		//buttonÀ» frame¿¡ ºÙÀÌ±â
+		add(bcash);
 		add(bapprove);
 		add(bclose);
 	}
@@ -173,20 +207,19 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		String result = e.getActionCommand(); //¼ýÀÚ ¹öÆ° ´­·¶À» ¶§
-		String getText1 = t1.getText(); //°áÁ¦ ±Ý¾×À» ¹Þ¾Æ¿Â´Ù
-		String getText2 = t2.getText(); //¹ÞÀº ±Ý¾×À» ¹Þ¾Æ¿Â´Ù
+		String getText = cardNum.getText(); //Ä«µå ¹øÈ£¸¦ ¹Þ¾Æ¿Â´Ù
 		
 		int getMoney; //¹ÞÀº µ·
-		int change; //°Å½º¸§µ·
 		
-		if(result.equals("Çö±Ý¿µ¼öÁõ"))
+		if(result.equals("ÇÒºÎ °³¿ù"))
 		{
-			new CashReceipt(Integer.toString(this.total));
+			new PayMonth();
 		}
 		
 		else if(result.equals("½ÂÀÎ ¿äÃ»"))
 		{
-			JOptionPane.showMessageDialog(null, "°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.\n°Å½º¸§µ·À» È®ÀÎÇØÁÖ¼¼¿ä.", "°áÁ¦ ¿Ï·á", JOptionPane.INFORMATION_MESSAGE);
+			
+			JOptionPane.showMessageDialog(null, "°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.", "°áÁ¦ ¿Ï·á", JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 		}
 		
@@ -197,60 +230,25 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		
 		else if(result.equals("¡ç")) //Áö¿ì±â ¹öÆ° Å¬¸¯ÇßÀ» ¶§
 		{
-			if(getText2.length()==1)
+			if(getText.length()==0)
 			{
-				getText2 = "0";
-				t2.setText(getText2);
-				t3.setText(getText2);
+				getText = "";
+				cardNum.setText(getText);
 				
 			}
 			
 			else
 			{
-				getText2 = getText2.substring(0,getText2.length()-1);
-				t2.setText(getText2);
-				change = Integer.parseInt(getText2) - this.total;
-				
-				if(change < 0) // ¸¸¾à °Å½º¸§µ·ÀÌ À½¼öÀÌ¸é
-				{
-					t3.setText("0"); 
-				}
-				
-				else //±×·¸Áö ¾ÊÀ¸¸é
-				{
-					t3.setText(Integer.toString(change));
-				}
-				
+				getText = getText.substring(0,getText.length()-1);
+				cardNum.setText(getText);
 			}
 		}
 		
 		else //¼ýÀÚ ¹öÆ° Å¬¸¯ÇßÀ» ¶§
 		{
-			if(getText2.equals("0"))
-			{
-				getText2=result;
-				
-			}
+			getText=getText+result;
+			cardNum.setText(getText);
 			
-			else 
-			{
-				getText2=getText2+result;
-				
-			}
-			
-			t2.setText(getText2);
-			
-			change = Integer.parseInt(getText2) - this.total;
-			
-			if(change < 0) // ¸¸¾à °Å½º¸§µ·ÀÌ À½¼öÀÌ¸é
-			{
-				t3.setText("0"); 
-			}
-			
-			else // ±×·¸Áö ¾ÊÀ¸¸é
-			{
-				t3.setText(Integer.toString(change));
-			}
 		}
 	}
 
