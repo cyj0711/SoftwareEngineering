@@ -22,9 +22,9 @@ public class DBconnector {
 	ResultSet rs = null;
 	PreparedStatement pstmt = null;
 
-	String url = "jdbc:mysql://localhost:3306/pos_db?serverTimezone=UTC";
+	String url = "jdbc:mysql://localhost:3306/opentutorials?serverTimezone=UTC";
 	String user = "root";
-	String pw = "0711";
+	String pw = "wndwjs0327";
 
 	public DBconnector() throws SQLException {
 
@@ -133,7 +133,7 @@ public class DBconnector {
 
 	}
 
-	public void deleteItem(String name, int cost) throws SQLException {
+	public void deleteItem(String name) throws SQLException {
 		try {
 			conn = DriverManager.getConnection(url, user, pw);
 			System.out.println("데이터 베이스 연결 성공");

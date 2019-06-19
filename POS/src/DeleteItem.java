@@ -1,6 +1,7 @@
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,8 +14,15 @@ public class DeleteItem extends JFrame implements ActionListener {
 	private final int WIDTH = 700;
 	private final int HEIGHT = 400;
 	
+	private JTextField tname;
+	
+	private String itemName;
+
+	public DBconnector db;
+	
 	public DeleteItem() {
 		super("상품 이름 입력");
+		
 		setSize(this.WIDTH, this.HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -26,7 +34,7 @@ public class DeleteItem extends JFrame implements ActionListener {
 		iname.setLayout(new FlowLayout());
 		
 		JLabel name = new JLabel("상품 이름: ");
-		JTextField tname = new JTextField(30);
+		tname = new JTextField(30);
 		
 		iname.add(name);
 		iname.add(tname);
@@ -50,8 +58,26 @@ public class DeleteItem extends JFrame implements ActionListener {
 		
 		String result = e.getActionCommand();
 		
+		try {
+			db = new DBconnector();
+		} 
+		
+		catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		if(result.equals("확인"))
 		{
+			itemName = tname.getText();
+			try {
+				db.deleteItem(itemName);
+			} 
+			
+			catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			dispose();
 		}
 		

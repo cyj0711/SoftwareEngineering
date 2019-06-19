@@ -1,10 +1,18 @@
+import java.sql.SQLException;
+
 public class Demo {
 
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
+		
+		DBconnector db = new DBconnector();
+		
+		//db.addItem("asdf", 1000);
+		//db.deleteItem("asdf");
+		//db.searchItems();
 
 		new MainDisplay();
 		//new Login();

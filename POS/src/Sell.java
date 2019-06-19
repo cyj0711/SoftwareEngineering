@@ -1,9 +1,11 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,15 +21,42 @@ public class Sell extends JFrame implements ActionListener {
 	private final int S_WIDTH = 640;
 	private final int S_HEIGHT = 450;
 	
-	private int total;
+	private int totalNum=0;
+	private int totalPrice=0;
+	
+	public static int getMoney=0;
+	public static int change=0;
 	
 	private String col[] = {"상품명", "수량", "금액", "할인액"};
-	private String row[][]= {};
+	private String row[][] = {};
+	
+	public DBconnector db;
+	
+	public ArrayList<ItemBean> temp = null;
+	private int count = 0;
+	
+	private JButton[] item =new JButton[20];
+	
+	private DefaultTableModel dtm;
+	private JTable table;
+	
+	private JTextField t1;
+	private JTextField t2;
+	private JTextField t3;
+	private JTextField t4;
 	
 	public Sell() {
 		
 		//frame setting
 		super("판매 화면");
+		
+		try {
+			db = new DBconnector();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setSize(Demo.WIDTH, Demo.HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -35,8 +64,8 @@ public class Sell extends JFrame implements ActionListener {
 		setLayout(null);
 		
 		//주문할 상품 리스트를 띄워줄 table을 scrollpane에 넣음
-		DefaultTableModel dtm = new DefaultTableModel(row,col);
-		JTable table = new JTable(dtm);
+		dtm = new DefaultTableModel(row, col);
+		table = new JTable(dtm);
 		table.setFillsViewportHeight(true);
 		
 		JScrollPane list = new JScrollPane(table);
@@ -90,92 +119,41 @@ public class Sell extends JFrame implements ActionListener {
 		
 	}
 	
-	/*public void makeSortPanel(int row, int col, int width, int height) {
-		//상품 종류 보여주는 패널 만들기
-		JPanel psort = new JPanel();
-		psort.setLayout(new GridLayout(2,4));
-		
-		JButton s1 = new JButton("1");
-		JButton s2 = new JButton("2");
-		JButton s3 = new JButton("3");
-		JButton s4 = new JButton("4");
-		JButton s5 = new JButton("5");
-		JButton s6 = new JButton("6");
-		JButton s7 = new JButton("7");
-		JButton s8 = new JButton("8");
-		
-		psort.add(s1);
-		psort.add(s2);
-		psort.add(s3);
-		psort.add(s4);
-		psort.add(s5);
-		psort.add(s6);
-		psort.add(s7);
-		psort.add(s8);
-		
-		psort.setBounds(row, col, width, height);
-		add(psort);
-	}*/
 	
 	public void makeItemPanel(int row, int col, int width, int height) {
 		//상품 보여주는 패널
 		JPanel pitem = new JPanel();
 		pitem.setLayout(new GridLayout(5,4));
 		
-		JButton i1 = new JButton();
-		JButton i2 = new JButton();
-		JButton i3 = new JButton();
-		JButton i4 = new JButton();
-		JButton i5 = new JButton();
-		JButton i6 = new JButton();
-		JButton i7 = new JButton();
-		JButton i8 = new JButton();
-		JButton i9 = new JButton();
-		JButton i10 = new JButton();
-		JButton i11 = new JButton();
-		JButton i12 = new JButton();
-		JButton i13 = new JButton();
-		JButton i14 = new JButton();
-		JButton i15 = new JButton();
-		JButton i16 = new JButton();
-		JButton i17 = new JButton();
-		JButton i18 = new JButton();
-		JButton i19 = new JButton();
-		JButton i20 = new JButton();
+		String itemName;
+		String itemPrice;
 		
-		i1.addActionListener(this);		i2.addActionListener(this);
-		i3.addActionListener(this);		i4.addActionListener(this);
-		i5.addActionListener(this);		i6.addActionListener(this);
-		i7.addActionListener(this);		i8.addActionListener(this);
-		i9.addActionListener(this);		i10.addActionListener(this);
-		i11.addActionListener(this);	i12.addActionListener(this);
-		i13.addActionListener(this);	i14.addActionListener(this);
-		i15.addActionListener(this);	i16.addActionListener(this);
-		i17.addActionListener(this);	i18.addActionListener(this);
-		i19.addActionListener(this);	i20.addActionListener(this);
+		int i;
+		
+		try {
+			temp = db.searchItems();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
-		pitem.add(i1);
-		pitem.add(i2);
-		pitem.add(i3);
-		pitem.add(i4);
-		pitem.add(i5);
-		pitem.add(i6);
-		pitem.add(i7);
-		pitem.add(i8);
-		pitem.add(i9);
-		pitem.add(i10);
-		pitem.add(i11);
-		pitem.add(i12);
-		pitem.add(i13);
-		pitem.add(i14);
-		pitem.add(i15);
-		pitem.add(i16);
-		pitem.add(i17);
-		pitem.add(i18);
-		pitem.add(i19);
-		pitem.add(i20);
 		
+	
+		for(i=0; i<20; i++) {
+			item[i] = new JButton();
+			item[i].addActionListener(this);
+			pitem.add(item[i]);
+		}
+		
+		i=0;
+		for(ItemBean b : temp) {	
+			item[i].setText(b.getName() + ": "+ b.getCost()+"원");
+			i++;
+			count++;
+		}
+		
+
 		pitem.setBounds(row, col, width, height);
 		add(pitem);
 		
@@ -187,7 +165,7 @@ public class Sell extends JFrame implements ActionListener {
 		bot1.setLayout(new FlowLayout());
 		
 		JLabel l1 = new JLabel("결제금액: ");
-		JTextField t1 = new JTextField(30);
+		t1 = new JTextField("0", 30);
 		t1.setEditable(false);
 		
 		bot1.add(l1);
@@ -200,7 +178,7 @@ public class Sell extends JFrame implements ActionListener {
 		bot2.setLayout(new FlowLayout());
 		
 		JLabel l2 = new JLabel("받은금액: ");
-		JTextField t2 = new JTextField(30);
+		t2 = new JTextField("0", 30);
 		t2.setEditable(false);
 		
 		bot2.add(l2);
@@ -213,7 +191,7 @@ public class Sell extends JFrame implements ActionListener {
 		bot3.setLayout(new FlowLayout());
 		
 		JLabel l3 = new JLabel("거스름돈: ");
-		JTextField t3 = new JTextField(30);
+		t3 = new JTextField(30);
 		t3.setEditable(false);
 		
 		bot3.add(l3);
@@ -225,7 +203,7 @@ public class Sell extends JFrame implements ActionListener {
 		JPanel bot4 = new JPanel();
 		bot4.setLayout(new FlowLayout());
 		JLabel l4 = new JLabel("수량: ");
-		JTextField t4 = new JTextField(10);
+		t4 = new JTextField("0", 10);
 		t4.setEditable(false);
 		
 		bot4.add(l4);
@@ -235,17 +213,17 @@ public class Sell extends JFrame implements ActionListener {
 		add(bot4);
 		
 		JPanel bot5 = new JPanel();
-		bot5.setLayout(new GridLayout(1,3));
+		bot5.setLayout(new GridLayout(1,2));
 		
-		JButton b1 = new JButton("포인트");
+		
 		JButton b2 = new JButton("카드");
 		JButton b3 = new JButton("현금");
 		
-		b1.addActionListener(this);
+		
 		b2.addActionListener(this);
 		b3.addActionListener(this);
 		
-		bot5.add(b1);
+		
 		bot5.add(b2);
 		bot5.add(b3);
 		
@@ -264,20 +242,22 @@ public class Sell extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		
 		String result = e.getActionCommand();
+		int j;
 		
-		if(result.equals("포인트"))
-		{
-			new Point(Integer.toString(total));
-		}
 		
-		else if(result.equals("카드"))
+		if(result.equals("카드"))
 		{
-			new Card(Integer.toString(total));
+			new Card(Integer.toString(totalPrice));
+			t2.setText(Integer.toString(totalPrice));
+			t3.setText("0");
+			dispose();
+			
 		}
 		
 		else if(result.equals("현금"))
 		{
-			new Cash(Integer.toString(total));
+			Cash c1 = new Cash(Integer.toString(totalPrice));
+			dispose();
 		}
 		
 		else if(result.equals("닫기"))
@@ -285,6 +265,43 @@ public class Sell extends JFrame implements ActionListener {
 			dispose();
 		}
 		
+		else 
+		{
+			//dtm: 테이블
+			//temp: list
+			//item: 버튼
+			for(int i=0; i<count; i++) {
+				if(result.equals(item[i].getText()))
+				{
+					
+					for(j=0; j<dtm.getRowCount(); j++) {
+						if(dtm.getValueAt(j, 0).equals(temp.get(i).getName()))
+						{
+							int ctemp = Integer.parseInt((String) dtm.getValueAt(j, 1));
+							dtm.setValueAt(Integer.toString(ctemp+1), j, 1);
+							int ptemp = (int) dtm.getValueAt(j, 2);
+							dtm.setValueAt((ctemp+1)*temp.get(i).getCost(), j, 2);
+							totalPrice+=temp.get(i).getCost();
+							break;
+						}
+										
+					}
+					
+					if(j==dtm.getRowCount())
+					{
+						Object[] t = {temp.get(i).getName(), "1", temp.get(i).getCost(), "0"};
+						dtm.addRow(t);
+						totalPrice += temp.get(i).getCost();
+					}
+					
+					
+				}
+			}
+			
+			t1.setText(Integer.toString(totalPrice));
+			t4.setText(Integer.toString(++totalNum));
+			
+		}
 	}
 
 }

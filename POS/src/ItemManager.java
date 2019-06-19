@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,9 +16,23 @@ public class ItemManager extends JFrame implements ActionListener {
 	
 	private String col[] = {"상품명", "가격"};
 	private String row[][]= {};
+
+	public DBconnector db;
+	private DefaultTableModel dtm;
+	private JTable table;
 	
 	public ItemManager() {
 		super("상품 관리");
+		
+		ArrayList<ItemBean> temp = null;
+		try {
+			db = new DBconnector();
+			temp = db.searchItems();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setSize(Demo.WIDTH, Demo.HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -40,11 +56,16 @@ public class ItemManager extends JFrame implements ActionListener {
 		add(close);
 		
 		//상품 목록을 띄워줌
-		DefaultTableModel dtm = new DefaultTableModel(row,col);
-		JTable table = new JTable(dtm);
+		dtm = new DefaultTableModel(row,col);
+		table = new JTable(dtm);
 		table.setFillsViewportHeight(true);
 		
 		JScrollPane list = new JScrollPane(table);
+		
+		for(ItemBean b : temp) {
+			Object[] t = {b.getName(), b.getCost()};
+			dtm.addRow(t);
+		}
 	
 		list.setBounds(300,150,S_WIDTH,S_HEIGHT);
 		add(list);
@@ -60,6 +81,7 @@ public class ItemManager extends JFrame implements ActionListener {
 		if(result.equals("상품 추가"))
 		{
 			new AddItem();
+			
 		}
 		
 		else if(result.equals("상품 삭제"))

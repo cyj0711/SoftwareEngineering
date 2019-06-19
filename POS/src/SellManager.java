@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,8 +17,22 @@ public class SellManager extends JFrame implements ActionListener {
 	private String col[] = {"상품명", "개수", "총 매출액"};
 	private String row[][]= {};
 	
+	public DBconnector db;
+	private DefaultTableModel dtm;
+	private JTable table;
+	
 	public SellManager() {
 		super("매출 현황");
+		
+		ArrayList<ItemBean> temp = null;
+		try {
+			db = new DBconnector();
+			temp = db.searchItems();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		setSize(Demo.WIDTH, Demo.HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -33,6 +49,11 @@ public class SellManager extends JFrame implements ActionListener {
 		DefaultTableModel dtm = new DefaultTableModel(row,col);
 		JTable table = new JTable(dtm);
 		table.setFillsViewportHeight(true);
+		
+		for(ItemBean b : temp) {
+			Object[] t = {b.getName(), 2, 2*b.getCost()};
+			dtm.addRow(t);
+		}
 		
 		JScrollPane list = new JScrollPane(table);
 	

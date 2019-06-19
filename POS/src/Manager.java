@@ -3,6 +3,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,7 +29,7 @@ public class Manager extends JFrame implements ActionListener {
 		JPanel plabel = new JPanel();
 		plabel.setLayout(new FlowLayout());
 		
-		JLabel l1 = new JLabel("메인 화면", JLabel.CENTER);
+		JLabel l1 = new JLabel("관리자 모드", JLabel.CENTER);
 		l1.setFont(new Font("굴림", Font.BOLD, 50));
 		
 		plabel.add(l1);

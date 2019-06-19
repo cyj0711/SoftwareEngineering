@@ -215,6 +215,9 @@ public class Cash extends JFrame implements ActionListener { // 현금 결제창을 구
 			}
 			
 			else {
+				Sell.getMoney = Integer.parseInt(t2.getText());
+				Sell.change = this.change;
+				
 				JOptionPane.showMessageDialog(null, "결제가 완료되었습니다.\n거스름돈을 확인해주세요.", "결제 완료", JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			}
