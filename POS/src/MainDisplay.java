@@ -15,7 +15,7 @@ public class MainDisplay extends JFrame implements ActionListener {
 	private final int BHEIGHT=160;
 	public MainDisplay() {
 	
-		super("Main");
+		super("메인 화면");
 		setSize(Demo.WIDTH, Demo.HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -63,17 +63,17 @@ public class MainDisplay extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		String result = e.getActionCommand();
 		
-		if(result.equals("상품판매"))
+		if(result.equals("상품판매")) //판매 화면 생성
 		{
 			new Sell();
 		}
 		
-		else if(result.equals("포스관리"))
+		else if(result.equals("포스관리")) //관리 화면 생성
 		{
 			new Login();
 		}
 		
-		else if(result.equals("나가기"))
+		else if(result.equals("나가기")) //프로그램 종료
 		{
 			System.exit(0);
 		}

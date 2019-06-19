@@ -14,14 +14,14 @@ import javax.swing.JTextField;
 
 public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Çö
 
-	private final int WIDTH = 900;
-	private final int HEIGHT = 600;
+	private final int WIDTH = 900; // frame Ã¢ °¡·Î
+	private final int HEIGHT = 600; // frame Ã¢ ¼¼·Î
 	
-	private final int P_WIDTH = 400;
-	private final int P_HEIGHT = 50;
+	private final int P_WIDTH = 400; // panel °¡·Î
+	private final int P_HEIGHT = 50; // panel ¼¼·Î
 	
-	private final int K_WIDTH = 200;
-	private final int K_HEIGHT = 250;
+	private final int K_WIDTH = 200; // key panel °¡·Î
+	private final int K_HEIGHT = 250; // key panel ¼¼·Î
 	
 	private JTextField t1; // °è»ê ±Ý¾× Ãâ·ÂÀ» À§ÇÑ textfield
 	private JTextField t2; // °áÁ¦ ±Ý¾× Ãâ·ÂÀ» À§ÇÑ textfield
@@ -43,18 +43,22 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 	public Card(String total) {
 		
 		super("Ä«µå °áÁ¦");
-		this.total = Integer.parseInt(total);
+		this.total = Integer.parseInt(total); // »ý¼ºÀÚ·Î ¹ÞÀº string typeÀÇ °áÁ¦ ±Ý¾×À» int·Î ¹Ù²ãÁØ´Ù
 		
+		//frame ¼¼ÆÃ
 		setSize(WIDTH, HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(null);
 		
+		//°áÁ¦ ±Ý¾×, Ä«µå ¹øÈ£ textfield
 		moneyPanel(50, 100, P_WIDTH, P_HEIGHT);
 		
+		//¼ýÀÚ ÀÔ·Â ¹öÆ°
 		makeKeypad(450, 100, K_WIDTH, K_HEIGHT);
 		
+		//±× ¿Ü ¹öÆ°
 		makeButton(670, 110, 150, 70);
 		
 		setVisible(true);
@@ -66,7 +70,7 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		cal1.setLayout(new FlowLayout());
 		
 		JLabel l1 = new JLabel("¹ÞÀ»±Ý¾×"); 
-		t1 = new JTextField(Integer.toString(this.total), 20);
+		t1 = new JTextField(Integer.toString(this.total), 20); //°áÁ¦ÇØ¾ßÇÒ ÃÑ ±Ý¾×
 		t1.setHorizontalAlignment(JTextField.RIGHT);
 		t1.setEditable(false);
 		
@@ -81,7 +85,7 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		cal2.setLayout(new FlowLayout());
 		
 		l2 = new JLabel("°áÁ¦±Ý¾×");
-		t2 = new JTextField(Integer.toString(this.total), 20);
+		t2 = new JTextField(Integer.toString(this.total), 20); //Ä«µå°áÁ¦ÇØ¾ßÇÒ ±Ý¾×
 		t2.setHorizontalAlignment(JTextField.RIGHT);
 		JLabel won2= new JLabel("¿ø");
 		
@@ -94,7 +98,7 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		pcard.setLayout(new FlowLayout());
 		
 		JLabel l3 = new JLabel("Ä«µå¹øÈ£");
-		cardNum = new JTextField(22);
+		cardNum = new JTextField(22); //Ä«µå¹øÈ£ ÀÔ·ÂÀ» À§ÇÑ textfield
 		cardNum.setHorizontalAlignment(JTextField.LEFT);
 		
 		pcard.add(l3);
@@ -105,7 +109,7 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		pMonth.setLayout(new FlowLayout());
 		
 		JLabel l4 = new JLabel("ÇÒºÎ°³¿ù");
-		fMonth = new JTextField("ÀÏ½ÃºÒ", 10);
+		fMonth = new JTextField("ÀÏ½ÃºÒ", 10); //ÇÒºÎ°³¿ù ¼±ÅÃÇÏÁö ¾ÊÀ¸¸é ÀÏ½ÃºÒ·Î Ç¥½Ã
 		fMonth.setHorizontalAlignment(JTextField.CENTER);
 		
 		pMonth.add(l4);
@@ -213,7 +217,7 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		
 		if(result.equals("ÇÒºÎ °³¿ù"))
 		{
-			new PayMonth();
+			new PayMonth(); //ÇÒºÎ Ã¢ ¶ç¿ì±â
 		}
 		
 		else if(result.equals("½ÂÀÎ ¿äÃ»"))

@@ -12,23 +12,23 @@ import javax.swing.JTextField;
 
 public class Cash extends JFrame implements ActionListener { // 현금 결제창을 구현
 
-	private final int WIDTH = 900;
-	private final int HEIGHT = 600;
+	private final int WIDTH = 900; //frame 가로 길이
+	private final int HEIGHT = 600; //frame 세로 길이
 	
-	private final int P_WIDTH = 400;
-	private final int P_HEIGHT = 50;
+	private final int P_WIDTH = 400; //panel 가로 길이
+	private final int P_HEIGHT = 50; //panel 세로 길이
 	
-	private final int K_WIDTH = 200;
-	private final int K_HEIGHT = 250;
+	private final int K_WIDTH = 200; //keypad 가로 길이
+	private final int K_HEIGHT = 250; //keypad 세로길이
 	
-	private JTextField t1;
-	private JTextField t2;
-	private JTextField t3;
+	private JTextField t1; // 결제 금액 띄우기 위한 textfield
+	private JTextField t2; // 받은 금액 띄우기 위한 textfield
+	private JTextField t3; // 거스름돈 띄우기 위한 textfield
 	
-	private JPanel pnum;
-	private JPanel cal1;
-	private JPanel cal2;
-	private JPanel cal3;
+	private JPanel pnum; //keypad 붙일 panel
+	private JPanel cal1; //결제 금액 붙일 panel
+	private JPanel cal2; //받은 금액 붙일 panel
+	private JPanel cal3; //거스름돈 붙일 panel
 	
 	private int total; //결제 금액을 받는 변수
 	private int change; //거스름돈
@@ -36,18 +36,22 @@ public class Cash extends JFrame implements ActionListener { // 현금 결제창을 구
 	public Cash(String total) {
 		super("현금 결제");
 		
-		this.total=Integer.parseInt(total);
+		this.total=Integer.parseInt(total); //string으로 받은 결제금액을 int로 변환시켜 저장
 		
+		//frame setting
 		setSize(WIDTH, HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(null);
 				
+		//결제금액, 받은금액, 거스름돈 
 		moneyPanel(50, 100, P_WIDTH, P_HEIGHT);
 		
+		//숫자 패드
 		makeKeypad(450, 100, K_WIDTH, K_HEIGHT);
 		
+		//그 외 버튼
 		makeButton(670, 110, 150, 70);
 		
 		
@@ -202,7 +206,7 @@ public class Cash extends JFrame implements ActionListener { // 현금 결제창을 구
 		
 		if(result.equals("현금영수증"))
 		{
-			new CashReceipt(Integer.toString(this.total));
+			new CashReceipt(Integer.toString(this.total)); //현금영수증 창 띄우기
 		}
 		
 		else if(result.equals("승인 요청"))

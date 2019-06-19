@@ -15,16 +15,15 @@ import javax.swing.JTextField;
 
 public class CashReceipt extends JFrame implements ActionListener { // Çö±Ý¿µ¼öÁõ Ã¢ ±¸Çö
 
-	private final int WIDTH = 600;
-	private final int HEIGHT = 700;
+	private final int WIDTH = 600; //frame °¡·Î ±æÀÌ
+	private final int HEIGHT = 700; //frame ¼¼·Î ±æÀÌ
 	
-	private JTextField t1;
-	private JTextField t2;
-	private JTextField t3;
+	private JTextField t1; //°áÁ¦±Ý¾× ¶ç¿ì´Â textfield
+	private JTextField t2; //Çö±Ý¿µ¼öÁõ ¹øÈ£ ÀÔ·Â¹Þ´Â textfield
 
-	private JPanel cal1;
-	private JPanel cal2;
-	private JPanel pnum;
+	private JPanel cal1; //°áÁ¦±Ý¾× textfield ºÙÀÌ´Â panel
+	private JPanel cal2; //Çö±Ý¿µ¼öÁõ ¹øÈ£ textfield ºÙÀÌ´Â panel
+	private JPanel pnum; //keypad ºÙÀÌ´Â panel
 	
 	private JLabel l2;
 	
@@ -33,18 +32,22 @@ public class CashReceipt extends JFrame implements ActionListener { // Çö±Ý¿µ¼öÁ
 	public CashReceipt(String total) { 
 		
 		super("Çö±Ý ¿µ¼öÁõ");
-		this.total = Integer.parseInt(total);
+		this.total = Integer.parseInt(total); //stringÀ¸·Î ¹ÞÀº °áÁ¦±Ý¾×À» int·Î ¹Ù²Ù¾î¼­ ÀúÀå
 		
+		//frame setting
 		setSize(WIDTH, HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(null);
 		
+		//°áÁ¦ ±Ý¾×, Çö±Ý¿µ¼öÁõ Á¾·ù, Çö±Ý¿µ¼öÁõ ¹øÈ£ 
 		moneyPanel(0, 70, WIDTH, 50);
 		
+		//¼ýÀÚ ÆÐµå
 		makeKeypad(100, 350, 200, 250);
 		
+		//±× ¿Ü ¹öÆ°
 		makeButton(330, 350, 150, 120);
 		
 		setVisible(true);
@@ -77,7 +80,7 @@ public class CashReceipt extends JFrame implements ActionListener { // Çö±Ý¿µ¼öÁ
 		JComboBox optionCombo = new JComboBox(option);
 		optionCombo.setPreferredSize(new Dimension(150, 20));
 		optionCombo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { //actionPerformed ¸Þ¼Òµå¸¦ ÀÌ³ÊÅ¬·¡½º·Î ±¸Çö
 				String choice = optionCombo.getSelectedItem().toString();
 				
 				if(choice.equals("°³ÀÎ"))
@@ -198,11 +201,8 @@ public class CashReceipt extends JFrame implements ActionListener { // Çö±Ý¿µ¼öÁ
 		// TODO Auto-generated method stub
 		
 		String result = e.getActionCommand(); //¼ýÀÚ ¹öÆ° ´­·¶À» ¶§
-		String getText1 = t1.getText(); //°áÁ¦ ±Ý¾×À» ¹Þ¾Æ¿Â´Ù
-		String getText2 = t2.getText(); //¹ÞÀº ±Ý¾×À» ¹Þ¾Æ¿Â´Ù
+		String getText = t2.getText(); //¹ÞÀº ±Ý¾×À» ¹Þ¾Æ¿Â´Ù
 		
-		int getMoney; //¹ÞÀº µ·
-		int change; //°Å½º¸§µ·
 		
 		if(result.equals("½ÂÀÎ ¿äÃ»"))
 		{
@@ -217,60 +217,25 @@ public class CashReceipt extends JFrame implements ActionListener { // Çö±Ý¿µ¼öÁ
 		
 		else if(result.equals("¡ç")) //Áö¿ì±â ¹öÆ° Å¬¸¯ÇßÀ» ¶§
 		{
-			if(getText2.length()==1)
+			if(getText.length()==0)
 			{
-				getText2 = "0";
-				t2.setText(getText2);
-				t3.setText(getText2);
+				getText = "";
+				t2.setText(getText);
 				
 			}
 			
 			else
 			{
-				getText2 = getText2.substring(0,getText2.length()-1);
-				t2.setText(getText2);
-				change = Integer.parseInt(getText2) - this.total;
-				
-				if(change < 0) // ¸¸¾à °Å½º¸§µ·ÀÌ À½¼öÀÌ¸é
-				{
-					t3.setText("0"); 
-				}
-				
-				else //±×·¸Áö ¾ÊÀ¸¸é
-				{
-					t3.setText(Integer.toString(change));
-				}
+				getText = getText.substring(0,getText.length()-1);
+				t2.setText(getText);
 				
 			}
 		}
 		
 		else //¼ýÀÚ ¹öÆ° Å¬¸¯ÇßÀ» ¶§
 		{
-			if(getText2.equals("0"))
-			{
-				getText2=result;
-				
-			}
-			
-			else 
-			{
-				getText2=getText2+result;
-				
-			}
-			
-			t2.setText(getText2);
-			
-			change = Integer.parseInt(getText2) - this.total;
-			
-			if(change < 0) // ¸¸¾à °Å½º¸§µ·ÀÌ À½¼öÀÌ¸é
-			{
-				t3.setText("0"); 
-			}
-			
-			else // ±×·¸Áö ¾ÊÀ¸¸é
-			{
-				t3.setText(Integer.toString(change));
-			}
+			getText=getText+result;
+			t2.setText(getText);
 		}
 			
 	}

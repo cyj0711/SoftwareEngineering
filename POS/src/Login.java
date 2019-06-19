@@ -14,16 +14,18 @@ import javax.swing.JTextField;
 
 public class Login extends JFrame implements ActionListener {
 
-	private final int P_WIDTH = 420;
-	private final int P_HEIGHT = 280;
+	private final int P_WIDTH = 420; //panel 가로 길이
+	private final int P_HEIGHT = 280; //panel 세로 길이
 	
-	private static boolean logged = false;
-	private JTextField text;
-	private String pwd="";
-	private String upwd="12345";
+	private JPanel lgin; //숫자 panel
+	private JTextField text; //비밀번호 입력받을 textfield
+	
+	private String pwd=""; //비밀번호 저장하는 string
+	private String upwd="12345"; //디버깅을 위한 비밀번호
 	
 	public Login() {
-		super("Login");
+		//frame setting
+		super("로그인");
 		setSize(Demo.WIDTH, Demo.HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -55,9 +57,16 @@ public class Login extends JFrame implements ActionListener {
 		ptext.setBounds(0, 270, Demo.WIDTH, 40);
 		add(text);
 		
+		makeKeypad(430, 330, P_WIDTH, P_HEIGHT);
 		
+		
+		setVisible(true);
+		
+	}
+	
+	public void makeKeypad(int row, int col, int width, int height) {
 		//login 숫자패널 만들기
-		JPanel lgin = new JPanel();
+		lgin = new JPanel();
 		lgin.setLayout(new GridLayout(4,3));
 		
 		JButton b0 = new JButton("0");
@@ -100,13 +109,9 @@ public class Login extends JFrame implements ActionListener {
 		lgin.add(bc);
 		lgin.add(be);
 		
-		lgin.setBounds(430, 330, P_WIDTH, P_HEIGHT);
+		lgin.setBounds(row, col, width, height);
 		add(lgin);
-		
-		setVisible(true);
-		
 	}
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -135,7 +140,6 @@ public class Login extends JFrame implements ActionListener {
 			if(pwd.equals(upwd))
 			{
 				JOptionPane.showMessageDialog(null, "관리자 계정으로 로그인하셨습니다.", "WARNING", JOptionPane.INFORMATION_MESSAGE);
-				logged=true;
 				dispose();
 				new Manager();
 			}

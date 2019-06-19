@@ -19,11 +19,14 @@ public class Point extends JFrame implements ActionListener {
 	
 	private JTextField fnum;
 	private JTextField fname;
+	private JTextField fpoint;
 	
 	private String num;
+	private int total;
 	
-	public Point() { //포인트 적립율은 카드, 현금 상관없이 5%로 설정
+	public Point(String total) { //포인트 적립율은 카드, 현금 상관없이 5%로 설정
 		super("포인트 적립");
+		this.total = Integer.parseInt(total);
 		setSize(WIDTH, HEIGHT);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -35,24 +38,24 @@ public class Point extends JFrame implements ActionListener {
 		
 		JButton check = new JButton("확인");
 		check.addActionListener(this);
-		check.setBounds(150, 210, 80, 40);
+		check.setBounds(150, 250, 80, 40);
 		add(check);		
 		
 		setVisible(true);
 	}
 	
 	public void makePanel(int row, int col, int width, int height) {
-		JPanel point = new JPanel();
-		point.setLayout(new FlowLayout());
+		JPanel customer = new JPanel();
+		customer.setLayout(new FlowLayout());
 		
 		JLabel lnum = new JLabel("회원번호");
 		fnum = new JTextField(14);
 		JButton button = new JButton("입력");
 		button.addActionListener(this);
 		
-		point.add(lnum);
-		point.add(fnum);
-		point.add(button);
+		customer.add(lnum);
+		customer.add(fnum);
+		customer.add(button);
 		
 		JPanel name = new JPanel();
 		name.setLayout(new FlowLayout());
@@ -63,11 +66,23 @@ public class Point extends JFrame implements ActionListener {
 		name.add(lname);
 		name.add(fname);
 		
-		point.setBounds(row, col, width, height);
-		name.setBounds(row, col+60, width, height);
+		JPanel point = new JPanel();
 		
-		add(point);
+		JLabel lpoint = new JLabel("적립금액");
+		fpoint = new JTextField(20);
+		fpoint.setHorizontalAlignment(JTextField.RIGHT);
+		fpoint.setText(Integer.toString((int)(this.total*0.05))+" 점");
+		
+		point.add(lpoint);
+		point.add(fpoint);
+		
+		customer.setBounds(row, col, width, height);
+		name.setBounds(row, col+60, width, height);
+		point.setBounds(row, col+120, width, height);
+		
+		add(customer);
 		add(name);
+		add(point);
 		
 	}
 	
