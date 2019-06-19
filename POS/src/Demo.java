@@ -1,20 +1,12 @@
-import java.sql.SQLException;
-
 public class Demo {
 
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		DBconnector db = new DBconnector();
-		db.addItem("good", 7000);
-		//db.deleteItem("letsgo", 0);
-		db.searchItems();
-		
 
-		//new MainDisplay();
+		new MainDisplay();
 		//new Login();
 		//new Cash("3000");
 		//new Card("5000");
@@ -22,7 +14,11 @@ public class Demo {
 		//new PayMonth();
 		//new Point("3000");
 		//new Sell();
-		//new Sell();
+		//new Manager();
+		//new SellManager();
+		//new ItemManager();
+		//new AddItem();
+		//new DeleteItem();
 		
 	}
 

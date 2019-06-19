@@ -201,8 +201,6 @@ public class Cash extends JFrame implements ActionListener { // 현금 결제창을 구
 		String getText1 = t1.getText(); //결제 금액을 받아온다
 		String getText2 = t2.getText(); //받은 금액을 받아온다
 		
-		int getMoney; //받은 돈
-		
 		
 		if(result.equals("현금영수증"))
 		{

@@ -11,8 +11,9 @@ import javax.swing.JPanel;
 
 public class MainDisplay extends JFrame implements ActionListener {
 
-	private final int BWIDTH = 260;
-	private final int BHEIGHT=160;
+	private final int B_WIDTH = 260;
+	private final int B_HEIGHT=160;
+	
 	public MainDisplay() {
 	
 		super("메인 화면");
@@ -38,11 +39,11 @@ public class MainDisplay extends JFrame implements ActionListener {
 		pbutton.setLayout(new FlowLayout());
 		
 		JButton b1 = new JButton("상품판매");
-		b1.setPreferredSize(new Dimension(BWIDTH,BHEIGHT));
+		b1.setPreferredSize(new Dimension(B_WIDTH,B_HEIGHT));
 		JButton b2 = new JButton("포스관리");
-		b2.setPreferredSize(new Dimension(BWIDTH,BHEIGHT));
+		b2.setPreferredSize(new Dimension(B_WIDTH,B_HEIGHT));
 		JButton b3 = new JButton("나가기");
-		b3.setPreferredSize(new Dimension(BWIDTH,BHEIGHT));
+		b3.setPreferredSize(new Dimension(B_WIDTH,B_HEIGHT));
 		
 		b1.addActionListener(this);
 		b2.addActionListener(this);

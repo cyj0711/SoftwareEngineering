@@ -130,7 +130,7 @@ public class Login extends JFrame implements ActionListener {
 			else
 			{
 				text.setText(result.substring(0,result.length()-1));
-				pwd=result.substring(0,result.length()-1);
+				pwd=pwd.substring(0,pwd.length()-1);
 			}
 			
 		}
@@ -139,7 +139,7 @@ public class Login extends JFrame implements ActionListener {
 		{
 			if(pwd.equals(upwd))
 			{
-				JOptionPane.showMessageDialog(null, "관리자 계정으로 로그인하셨습니다.", "WARNING", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "관리자 계정으로 로그인하셨습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 				new Manager();
 			}
