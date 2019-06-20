@@ -41,6 +41,8 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 	private int total; // °áÁ¦ ±Ý¾×
 	private int change; // °Å½º¸§µ·
 	public static String payMonth; //ÇÒºÎ°³¿ù
+	
+	private DBconnector db;
 
 	
 	public Card(String total) {
@@ -48,6 +50,12 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		super("Ä«µå °áÁ¦");
 		this.total = Integer.parseInt(total); // »ý¼ºÀÚ·Î ¹ÞÀº string typeÀÇ °áÁ¦ ±Ý¾×À» int·Î ¹Ù²ãÁØ´Ù
 		
+		try {
+			db = new DBconnector();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//frame ¼¼ÆÃ
 		setSize(WIDTH, HEIGHT);
@@ -226,10 +234,26 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		
 		else if(result.equals("½ÂÀÎ ¿äÃ»"))
 		{
+			if(getText.length()==0)
+			{
+				JOptionPane.showMessageDialog(null, "Ä«µå¸¦ ¸®´õ±â¿¡ ²È¾ÆÁÖ¼¼¿ä.", "°áÁ¦ Ãë¼Ò", JOptionPane.WARNING_MESSAGE);
+			}
 			
-			JOptionPane.showMessageDialog(null, "°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.", "°áÁ¦ ¿Ï·á", JOptionPane.INFORMATION_MESSAGE);
+			else if(getText.length() != 16)
+			{
+				JOptionPane.showMessageDialog(null, "À¯È¿ÇÏÁö ¾ÊÀº Ä«µåÀÔ´Ï´Ù.", "°áÁ¦ Ãë¼Ò", JOptionPane.WARNING_MESSAGE);
+			}
 			
-			dispose();
+			else {
+				JOptionPane.showMessageDialog(null, "°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.", "°áÁ¦ ¿Ï·á", JOptionPane.INFORMATION_MESSAGE);
+				try {
+					db.sellItem(Sell.dtm);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dispose();
+			}			
 		}
 		
 		else if(result.equals("´Ý±â"))

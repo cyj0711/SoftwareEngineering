@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -72,12 +73,18 @@ public class DeleteItem extends JFrame implements ActionListener {
 			itemName = tname.getText();
 			try {
 				int tcnt = ItemManager.dtm.getRowCount();
-				for(int i=0; i<tcnt; i++) {
+				int i;
+				for(i=0; i<tcnt; i++) {
 					if(ItemManager.dtm.getValueAt(i, 0).equals(itemName))
 					{
 						ItemManager.dtm.removeRow(i);
 						break;
 					}
+				}
+				
+				if(i==tcnt)
+				{
+					JOptionPane.showMessageDialog(null, "일치하는 메뉴가 없습니다.", "메뉴 삭제 취소", JOptionPane.WARNING_MESSAGE);
 				}
 				
 				db.deleteItem(itemName);

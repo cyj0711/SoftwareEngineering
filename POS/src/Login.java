@@ -120,7 +120,15 @@ public class Login extends JFrame implements ActionListener {
 		String num = e.getActionCommand();
 		String result = text.getText();
 		
-		if(num.equals("←"))
+		if(pwd.length()+1>10)
+		{
+			JOptionPane.showMessageDialog(null, "입력 가능한 비밀번호의 길이를 초과하였습니다.", "Error", JOptionPane.WARNING_MESSAGE);
+			text.setText("");
+			pwd="";
+			
+		}
+		
+		else if(num.equals("←"))
 		{
 			if(result.equals(""))
 			{

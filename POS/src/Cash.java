@@ -3,6 +3,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,10 +35,19 @@ public class Cash extends JFrame implements ActionListener { // 현금 결제창을 구
 	private int total; //결제 금액을 받는 변수
 	private int change; //거스름돈
 	
+	private DBconnector db;
+	
 	public Cash(String total) {
 		super("현금 결제");
 		
 		this.total=Integer.parseInt(total); //string으로 받은 결제금액을 int로 변환시켜 저장
+		
+		try {
+			db = new DBconnector();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//frame setting
 		setSize(WIDTH, HEIGHT);
@@ -215,11 +225,24 @@ public class Cash extends JFrame implements ActionListener { // 현금 결제창을 구
 				JOptionPane.showMessageDialog(null, "결제가 완료되지 않았습니다.", null, JOptionPane.INFORMATION_MESSAGE);
 			}
 			
+			else if(Integer.parseInt(getText2)-this.change != Integer.parseInt(getText1))
+			{
+				JOptionPane.showMessageDialog(null, "결제가 완료되지 않았습니다.", null, JOptionPane.INFORMATION_MESSAGE);
+			}
+			
 			else {
 				Sell.getMoney = Integer.parseInt(t2.getText());
 				Sell.change = this.change;
 				
 				JOptionPane.showMessageDialog(null, "결제가 완료되었습니다.\n거스름돈을 확인해주세요.", "결제 완료", JOptionPane.INFORMATION_MESSAGE);
+				
+				try {
+					db.sellItem(Sell.dtm);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				dispose();
 			}
 			

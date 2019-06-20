@@ -214,6 +214,8 @@ public class DBconnector {
 			pstmt.setInt(1, count+buy_count);
 			pstmt.setString(2, name);
 			
+			pstmt.executeUpdate();
+			
 
 			System.out.println("count ¿Ï·á");
 

@@ -38,7 +38,7 @@ public class Sell extends JFrame implements ActionListener {
 	
 	private JButton[] item =new JButton[20];
 	
-	private DefaultTableModel dtm;
+	public static DefaultTableModel dtm;
 	private JTable table;
 	
 	private JTextField t1;
@@ -229,13 +229,6 @@ public class Sell extends JFrame implements ActionListener {
 			t2.setText(Integer.toString(totalPrice));
 			t3.setText("0");
 			
-			try {
-				db.sellItem(dtm);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
 			dispose();
 			
 		}
@@ -243,12 +236,7 @@ public class Sell extends JFrame implements ActionListener {
 		else if(result.equals("Çö±Ý"))
 		{
 			Cash c1 = new Cash(Integer.toString(totalPrice));
-			try {
-				db.sellItem(dtm);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 			dispose();
 		}
 		
