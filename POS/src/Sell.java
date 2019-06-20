@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -147,8 +148,8 @@ public class Sell extends JFrame implements ActionListener {
 		}
 		
 		i=0;
-		for(ItemBean b : temp) {	
-			item[i].setText(b.getName() + ": "+ b.getCost()+"¿ø");
+		for(ItemBean b : temp) {
+			item[i].setText(b.getName());
 			i++;
 			count++;
 		}
@@ -250,6 +251,14 @@ public class Sell extends JFrame implements ActionListener {
 			new Card(Integer.toString(totalPrice));
 			t2.setText(Integer.toString(totalPrice));
 			t3.setText("0");
+			
+			try {
+				db.sellItem(dtm);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			dispose();
 			
 		}
@@ -257,6 +266,12 @@ public class Sell extends JFrame implements ActionListener {
 		else if(result.equals("Çö±Ý"))
 		{
 			Cash c1 = new Cash(Integer.toString(totalPrice));
+			try {
+				db.sellItem(dtm);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			dispose();
 		}
 		

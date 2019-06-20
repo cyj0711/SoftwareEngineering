@@ -23,7 +23,6 @@ public class AddItem extends JFrame implements ActionListener {
 	
 	public DBconnector db;
 	
-	
 	public AddItem() {
 		super("상품 이름 입력");
 		
@@ -90,6 +89,8 @@ public class AddItem extends JFrame implements ActionListener {
 			itemPrice = tprice.getText();
 			try {
 				db.addItem(itemName, Integer.parseInt(itemPrice));
+				Object[] t = {itemName, Integer.parseInt(itemPrice)};
+				ItemManager.dtm.addRow(t);
 			} 
 			
 			catch (NumberFormatException e1) {

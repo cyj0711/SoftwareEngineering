@@ -18,13 +18,13 @@ public class ItemManager extends JFrame implements ActionListener {
 	private String row[][]= {};
 
 	public DBconnector db;
-	private DefaultTableModel dtm;
+	public static DefaultTableModel dtm;
 	private JTable table;
+	private ArrayList<ItemBean> temp = null;
 	
 	public ItemManager() {
 		super("惑前 包府");
 		
-		ArrayList<ItemBean> temp = null;
 		try {
 			db = new DBconnector();
 			temp = db.searchItems();
@@ -80,8 +80,7 @@ public class ItemManager extends JFrame implements ActionListener {
 		
 		if(result.equals("惑前 眠啊"))
 		{
-			new AddItem();
-			
+			new AddItem();			
 		}
 		
 		else if(result.equals("惑前 昏力"))

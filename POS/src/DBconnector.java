@@ -1,19 +1,12 @@
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JTable;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
-
+import java.sql.Statement;
 import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
 
 public class DBconnector {
 
@@ -22,7 +15,7 @@ public class DBconnector {
 	ResultSet rs = null;
 	PreparedStatement pstmt = null;
 
-	String url = "jdbc:mysql://localhost:3306/opentutorials?serverTimezone=UTC";
+	String url = "jdbc:mysql://localhost:3306/pos?serverTimezone=UTC";
 	String user = "root";
 	String pw = "wndwjs0327";
 
@@ -171,7 +164,7 @@ public class DBconnector {
 			}
 	}
 
-	public void sellItem(JTable table) throws SQLException {
+	public void sellItem(DefaultTableModel table) throws SQLException {
 		int kind;
 		int buy_count;
 		int count=0;

@@ -21,10 +21,12 @@ public class SellManager extends JFrame implements ActionListener {
 	private DefaultTableModel dtm;
 	private JTable table;
 	
+	private ArrayList<ItemBean> temp = null;
+	
 	public SellManager() {
 		super("매출 현황");
 		
-		ArrayList<ItemBean> temp = null;
+		
 		try {
 			db = new DBconnector();
 			temp = db.searchItems();
@@ -46,13 +48,17 @@ public class SellManager extends JFrame implements ActionListener {
 		add(close);
 		
 		//매출 현황 보여준다
-		DefaultTableModel dtm = new DefaultTableModel(row,col);
+		dtm = new DefaultTableModel(row,col);
 		JTable table = new JTable(dtm);
 		table.setFillsViewportHeight(true);
 		
 		for(ItemBean b : temp) {
-			Object[] t = {b.getName(), 2, 2*b.getCost()};
-			dtm.addRow(t);
+			if(b.getCount()>0)
+			{
+				Object[] t = {b.getName(), b.getCount(), b.getCount()*b.getCost()};
+				dtm.addRow(t);
+			}
+			
 		}
 		
 		JScrollPane list = new JScrollPane(table);

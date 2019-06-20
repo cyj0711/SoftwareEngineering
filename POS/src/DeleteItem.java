@@ -71,7 +71,17 @@ public class DeleteItem extends JFrame implements ActionListener {
 		{
 			itemName = tname.getText();
 			try {
+				int tcnt = ItemManager.dtm.getRowCount();
+				for(int i=0; i<tcnt; i++) {
+					if(ItemManager.dtm.getValueAt(i, 0).equals(itemName))
+					{
+						ItemManager.dtm.removeRow(i);
+						break;
+					}
+				}
+				
 				db.deleteItem(itemName);
+				
 			} 
 			
 			catch (SQLException e1) {

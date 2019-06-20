@@ -1,8 +1,10 @@
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -39,11 +41,13 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 	private int total; // °áÁ¦ ±Ý¾×
 	private int change; // °Å½º¸§µ·
 	public static String payMonth; //ÇÒºÎ°³¿ù
+
 	
 	public Card(String total) {
 		
 		super("Ä«µå °áÁ¦");
 		this.total = Integer.parseInt(total); // »ý¼ºÀÚ·Î ¹ÞÀº string typeÀÇ °áÁ¦ ±Ý¾×À» int·Î ¹Ù²ãÁØ´Ù
+		
 		
 		//frame ¼¼ÆÃ
 		setSize(WIDTH, HEIGHT);
@@ -224,6 +228,7 @@ public class Card extends JFrame implements ActionListener { //Ä«µå °áÁ¦Ã¢À» ±¸Ç
 		{
 			
 			JOptionPane.showMessageDialog(null, "°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.", "°áÁ¦ ¿Ï·á", JOptionPane.INFORMATION_MESSAGE);
+			
 			dispose();
 		}
 		
