@@ -74,9 +74,9 @@ public class Sell extends JFrame implements ActionListener {
 		list.setBounds(0,0,S_WIDTH,S_HEIGHT);
 		add(list);
 		
-		makeCountPanel(S_WIDTH,0,90,S_HEIGHT+180);
+		makePanel(S_WIDTH,0,50,S_HEIGHT+180);
 		//makeSortPanel(730,0,550,90);
-		makeItemPanel(730,0,550,450);
+		makeItemPanel(690,0,590,450);
 		bottomPanel(0,450,430,60);
 		
 		JPanel temp = new JPanel();
@@ -86,34 +86,11 @@ public class Sell extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
-	public void makeCountPanel(int row, int col, int width, int height) {
-		//상품 수량 조절하는 패널 만들기
+	public void makePanel(int row, int col, int width, int height) {
+		
 		JPanel pmid = new JPanel();
-		pmid.setLayout(new GridLayout(7,1));
 		
-		JButton badd = new JButton("+");
-		JButton bsub = new JButton("-");
-		JButton bcancel = new JButton("지정취소");
-		JButton bup = new JButton("↑");
-		JButton bdown = new JButton("↓");
-		JButton bIdc = new JButton("상품할인");
-		JButton bdc = new JButton("전체할인");
-		
-		badd.addActionListener(this);
-		bsub.addActionListener(this);
-		bcancel.addActionListener(this);
-		bup.addActionListener(this);
-		bdown.addActionListener(this);
-		bIdc.addActionListener(this);
-		bdc.addActionListener(this);
-		
-		pmid.add(badd);
-		pmid.add(bsub);
-		pmid.add(bcancel);
-		pmid.add(bup);
-		pmid.add(bdown);
-		pmid.add(bIdc);
-		pmid.add(bdc);
+		pmid.setBackground(Color.WHITE);
 		
 		pmid.setBounds(row, col, width, height);
 		add(pmid);
@@ -279,6 +256,8 @@ public class Sell extends JFrame implements ActionListener {
 		{
 			dispose();
 		}
+		
+		
 		
 		else 
 		{
