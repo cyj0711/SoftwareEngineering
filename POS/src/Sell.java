@@ -292,8 +292,8 @@ public class Sell extends JFrame implements ActionListener {
 					for(j=0; j<dtm.getRowCount(); j++) {
 						if(dtm.getValueAt(j, 0).equals(temp.get(i).getName()))
 						{
-							int ctemp = Integer.parseInt((String) dtm.getValueAt(j, 1));
-							dtm.setValueAt(Integer.toString(ctemp+1), j, 1);
+							int ctemp = (int) dtm.getValueAt(j, 1);
+							dtm.setValueAt(ctemp+1, j, 1);
 							int ptemp = (int) dtm.getValueAt(j, 2);
 							dtm.setValueAt((ctemp+1)*temp.get(i).getCost(), j, 2);
 							totalPrice+=temp.get(i).getCost();
@@ -304,7 +304,7 @@ public class Sell extends JFrame implements ActionListener {
 					
 					if(j==dtm.getRowCount())
 					{
-						Object[] t = {temp.get(i).getName(), "1", temp.get(i).getCost(), "0"};
+						Object[] t = {temp.get(i).getName(), 1, temp.get(i).getCost(), "0"};
 						dtm.addRow(t);
 						totalPrice += temp.get(i).getCost();
 					}

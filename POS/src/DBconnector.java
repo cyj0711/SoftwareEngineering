@@ -182,7 +182,7 @@ public class DBconnector {
 		for (int i = 0; i < kind; i++) {
 			
 			name=(String) table.getValueAt(i, 0);
-			buy_count=(int) table.getValueAt(i, 1);
+			buy_count=(int)table.getValueAt(i, 1);
 
 			try {
 				pstmt = conn.prepareStatement("SELECT * FROM pos_item where name=?");
